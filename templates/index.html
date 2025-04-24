@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gesture Translator</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <header class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-gray-800 mb-2">Gesture Translator</h1>
+            <p class="text-gray-600">Transform hand gestures into text, speech, or emojis in real-time</p>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Video Feed -->
+            <div class="bg-white rounded-lg shadow-lg p-4">
+                <h2 class="text-xl font-semibold mb-4">Camera Feed</h2>
+                <div class="relative aspect-w-16 aspect-h-9">
+                    <img id="video_feed" src="{{ url_for('video_feed') }}" 
+                         class="rounded-lg w-full h-full object-cover"
+                         alt="Video feed">
+                </div>
+            </div>
+
+            <!-- Controls and Output -->
+            <div class="bg-white rounded-lg shadow-lg p-4">
+                <h2 class="text-xl font-semibold mb-4">Controls</h2>
+                
+                <!-- Output Mode Selection -->
+                <div class="mb-6">
+                    <label class="block text-gray-700 mb-2">Output Mode</label>
+                    <select id="outputMode" class="w-full p-2 border rounded-lg">
+                        <option value="text">Text</option>
+                        <option value="speech">Speech</option>
+                        <option value="emoji">Emoji</option>
+                    </select>
+                </div>
+
+                <!-- Gesture Output -->
+                <div class="mb-6">
+                    <h3 class="text-lg font-medium mb-2">Detected Gesture</h3>
+                    <div id="gestureOutput" class="p-4 bg-gray-100 rounded-lg min-h-[100px] text-center text-2xl">
+                        Waiting for gestures...
+                    </div>
+                </div>
+
+                <!-- Status Messages -->
+                <div id="status" class="text-sm text-gray-600 text-center"></div>
+            </div>
+        </div>
+
+        <!-- Instructions -->
+        <div class="mt-8 bg-white rounded-lg shadow-lg p-6">
+            <h2 class="text-xl font-semibold mb-4">Available Gestures</h2>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                <div class="text-center p-4 bg-gray-50 rounded-lg">
+                    <div class="text-4xl mb-2">👍</div>
+                    <div class="text-sm">Thumbs Up</div>
+                </div>
+                <div class="text-center p-4 bg-gray-50 rounded-lg">
+                    <div class="text-4xl mb-2">✌️</div>
+                    <div class="text-sm">Peace</div>
+                </div>
+                <div class="text-center p-4 bg-gray-50 rounded-lg">
+                    <div class="text-4xl mb-2">🖐️</div>
+                    <div class="text-sm">Open Palm</div>
+                </div>
+                <div class="text-center p-4 bg-gray-50 rounded-lg">
+                    <div class="text-4xl mb-2">✊</div>
+                    <div class="text-sm">Fist</div>
+                </div>
+                <div class="text-center p-4 bg-gray-50 rounded-lg">
+                    <div class="text-4xl mb-2">👆</div>
+                    <div class="text-sm">Pointing</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html> 
